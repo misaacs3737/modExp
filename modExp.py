@@ -34,7 +34,7 @@ def ourModExp(a , n , P, E, T):
     t *= temp * P[i]
     m *= P[i]**E[i]
   r = n % phi
-  M = (n - r) // phi
+  q = (n - r) // phi
   raisin = pow(a, phi, m) - 1
   sum = 0
   choose = 1
@@ -45,9 +45,9 @@ def ourModExp(a , n , P, E, T):
     if ell<et:
       ell = et
   inverses = generateInversePairs(ell, m, P)
-  for i in range(min(ell, M + 1)):
+  for i in range(min(ell, q + 1)):
     sum = (sum + (choose * Pc_exp)) % m
     Pc_exp = (Pc_exp * raisin) % m
-    choose = (((choose * (M - i)) % m) // inverses[i + 1][1] * inverses[i + 1][0]) % m
-  R = pow(a, r, m)
-  return (sum * R) % m
+    choose = (((choose * (q - i)) % m) // inverses[i + 1][1] * inverses[i + 1][0]) % m
+  ar = pow(a, r, m)
+  return (sum * ar) % m
