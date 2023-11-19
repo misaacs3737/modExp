@@ -35,10 +35,10 @@ def ourModExp(a , n , P, E, T):
     m *= P[i]**E[i]
   r = n % phi
   q = (n - r) // phi
-  raisin = pow(a, phi, m) - 1
+  c = pow(a, phi, m) - 1
   sum = 0
   choose = 1
-  Pc_exp = 1
+  cExp = 1
   ell = 0
   for i in range(len(P)):
     et = E[i] // T[i]
@@ -46,8 +46,20 @@ def ourModExp(a , n , P, E, T):
       ell = et
   inverses = generateInversePairs(ell, m, P)
   for i in range(min(ell, q + 1)):
-    sum = (sum + (choose * Pc_exp)) % m
-    Pc_exp = (Pc_exp * raisin) % m
+    sum = (sum + (choose * cExp)) % m
+    cExp = (cExp * c) % m
     choose = (((choose * (q - i)) % m) // inverses[i + 1][1] * inverses[i + 1][0]) % m
   ar = pow(a, r, m)
   return (sum * ar) % m
+
+#testing
+P = [11, 13, 2]
+E = [5,7, 3]
+T = [1, 1, 1]
+k = len(P)
+m = 1
+for i in range(k):
+        m *= P[i]**E[i]
+a = 45
+n = 1245
+print(pow(a,n,m) - ourModExp(a, n, P, E, T))
