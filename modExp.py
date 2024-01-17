@@ -51,15 +51,3 @@ def ourModExp(a , n , P, E, T):
     choose = (((choose * (q - i)) % m) // inverses[i + 1][1] * inverses[i + 1][0]) % m
   ar = pow(a, r, m)
   return (sum * ar) % m
-
-#testing
-P = [11, 13, 2]
-E = [5,7, 3]
-T = [1, 1, 1]
-k = len(P)
-m = 1
-for i in range(k):
-        m *= P[i]**E[i]
-a = 45
-n = 1245
-print(pow(a,n,m) - ourModExp(a, n, P, E, T))
