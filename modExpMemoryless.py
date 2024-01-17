@@ -25,7 +25,6 @@ def ourModExpMemoryless(a , n , P, E, T):
     et = E[i] // T[i]
     if ell<et:
       ell = et
-  #inverses = generateInversePairs(ell, m, P)
   for i in range(min(ell, q + 1)):
     sum = (sum + (choose * cExp)) % m
     cExp = (cExp * c) % m
@@ -36,15 +35,3 @@ def ourModExpMemoryless(a , n , P, E, T):
     choose = (((choose * (q - i)) % m) // v * u) % m
   ar = pow(a, r, m)
   return (sum * ar) % m
-
-#testing
-P = [17, 13, 2, 7]
-E = [5,7, 3, 20]
-T = [1, 1, 1, 2]
-k = len(P)
-m = 1
-for i in range(k):
-        m *= P[i]**E[i]
-a = 22325
-n = 1245
-print(pow(a,n,m) - ourModExpMemoryless(a, n, P, E, T))
