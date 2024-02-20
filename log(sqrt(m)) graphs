@@ -98,7 +98,7 @@ print(r)
 import numpy as np
 from scipy.optimize import curve_fit
 import matplotlib.pyplot as plt
-
+from scipy.stats import linregress
 
 
 r = [3.200153007554748, 4.596915904608212, 3.33258970068786, 4.393921306465476, 4.650281654766603, 5.931401537551745, 5.178184880589721, 7.425458674475587, 5.110130023958866, 5.8213707843171125, 7.985568895837635, 6.9471910675524065, 6.111391547572222, 9.666443517403994, 7.25789631501945, 9.183388922776098, 7.387101244262248, 10.966582874822016, 8.011193360933209, 11.821276945774118, 8.626115474804454, 12.454318263975493, 9.2842417152441, 13.316032231092871, 10.274993357895188, 14.789551249476578, 10.77251866089813, 15.020308679879301, 14.96732939564293, 16.146873518125457, 11.690325149343499, 17.029280493841043, 12.667446877224787, 17.613075616646466, 17.251156579368004, 18.08672038250017, 13.21114901580716, 19.898852594371345, 13.879322361792115, 21.55892097759222]
@@ -152,3 +152,23 @@ plt.xlabel("log m")
 plt.ylabel("Ratio")
 plt.legend()
 plt.show()
+
+
+
+# Calculate residuals for even and odd fits
+residuals_even = reven - sqrt_fit(logmeven, *params_even)
+residuals_odd = rodd - sqrt_fit(logmodd, *params_odd)
+
+# Calculate R-squared for even fit
+ss_total_even = np.sum((reven - np.mean(reven))**2)
+ss_res_even = np.sum(residuals_even**2)
+r_squared_even = 1 - (ss_res_even / ss_total_even)
+
+# Calculate R-squared for odd fit
+ss_total_odd = np.sum((rodd - np.mean(rodd))**2)
+ss_res_odd = np.sum(residuals_odd**2)
+r_squared_odd = 1 - (ss_res_odd / ss_total_odd)
+
+print("R-squared for even fit:", r_squared_even)
+print("R-squared for odd fit:", r_squared_odd)
+
